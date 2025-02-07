@@ -14,11 +14,6 @@ class UserController extends Controller {
     {
         $this->view('register');
     }
-    public function login(): void
-    {
-        $this->view('login');
-    }
-
     public function handleRegister(): void
     {
         var_dump($_POST);
@@ -42,6 +37,11 @@ class UserController extends Controller {
             exit;
         }
     }
+    public function login(): void
+    {
+        $this->view('login');
+    }
+
 
     public function handleLogin(): void
     {
@@ -56,7 +56,7 @@ class UserController extends Controller {
             if($user->login()) {
                 header('Location: /home');
             } else {
-                header('Location: /login?error=invalid_credentials');
+                header('Location: /login');
             }
     }
 
