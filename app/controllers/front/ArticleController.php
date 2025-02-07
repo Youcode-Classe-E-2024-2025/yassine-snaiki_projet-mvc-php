@@ -12,7 +12,6 @@ class ArticleController extends Controller {
 
         public function CreateArticle(): void
         {
-
                 $title = $_POST['title']; 
                 $content = $_POST['content'];
                 $article = new Article();
@@ -20,15 +19,18 @@ class ArticleController extends Controller {
                 $article->content = $content;
                 $article->Author_id = $_SESSION["user_id"];
                 $article->save();
-
                 header('location: \home');
-
         }
 
         public function FetchArticle(): void
         {
             $session = new Session();
+            if(!isset($_SESSION['user_role'])){
+                header('Location: /login');
+                exit;
+            }
             $user_role = $session->get('user_role');
+            
             $article = new Article();
             $articles = $article->fetch();
 

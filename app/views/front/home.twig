@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArticleHub - Liste des Articles</title>
+    <title>ArticleManager</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -23,11 +23,11 @@
     <header class="bg-white/10 backdrop-blur-lg border-b border-white/10">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-white">ArticleHub</h1>
+                <h1 class="text-2xl font-bold text-white">ArticleManager</h1>
                 <div class="flex items-center space-x-4">
                     {% if user_role != 3 %}
                         <button id="addArticleBtn" class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent">
-                            Ajouter un Article
+                            Add Article
                         </button>
                     {% endif %}
                     <a href="/logout" class="px-4 py-2 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500/20 transition-colors duration-200">
@@ -46,54 +46,47 @@
                         <h2 class="text-xl font-semibold mb-3 text-white">{{ article.title }}</h2>
                         <p class="text-white/70 mb-6">{{ article.content }}</p>
                         <div class="flex space-x-3">
-                            <a href="/article/{{ article.id }}" 
-                               class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent">
-                                Voir
-                            </a>
                             {% if user_role != 3 %}
-                                <a href="/editArticle/{{ article.id }}" 
-                                   class="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-xl hover:bg-emerald-500/20 transition-colors duration-200">
-                                    Modifier
-                                </a>
+                             
                                 <a href="/deleteArticle/{{ article.id }}" 
                                    class="px-4 py-2 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500/20 transition-colors duration-200">
-                                    Supprimer
+                                    Delete
                                 </a>
                             {% endif %}
                         </div>
                     </article>
                 {% endfor %}
             {% else %}
-                <p class="text-white/70">Aucun article disponible.</p>
+                <p class="text-white/70">No articles available.</p>
             {% endif %}
         </div>
     </main>
 
-    <!-- Modal pour ajouter un article -->
+    <!-- Add Article Modal -->
     <div id="addArticleModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center modal-transition">
         <div class="bg-white/10 backdrop-blur-lg rounded-2xl border border-white/10 p-8 w-full max-w-md mx-4">
-            <h2 class="text-2xl font-bold mb-6 text-white">Ajouter un Nouvel Article</h2>
+            <h2 class="text-2xl font-bold mb-6 text-white">Add New Article</h2>
             <form id="addArticleForm" action="/createArticle" method="POST" class="space-y-6">
                 <div>
-                    <label for="articleTitle" class="block text-sm font-medium text-white/90 mb-2">Titre</label>
+                    <label for="articleTitle" class="block text-sm font-medium text-white/90 mb-2">Title</label>
                     <input type="text" id="articleTitle" name="title" required 
                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/50 focus:border-blue-400 focus:ring focus:ring-blue-400/20 focus:outline-none"
-                           placeholder="Entrez le titre">
+                           placeholder="Enter title">
                 </div>
                 <div>
-                    <label for="articleContent" class="block text-sm font-medium text-white/90 mb-2">Contenu</label>
+                    <label for="articleContent" class="block text-sm font-medium text-white/90 mb-2">Content</label>
                     <textarea id="articleContent" name="content" rows="4" required 
                               class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/50 focus:border-blue-400 focus:ring focus:ring-blue-400/20 focus:outline-none"
-                              placeholder="Entrez le contenu"></textarea>
+                              placeholder="Enter content"></textarea>
                 </div>
                 <div class="flex justify-end space-x-3">
                     <button type="button" id="cancelBtn" 
                             class="px-4 py-2 bg-white/5 text-white/70 rounded-xl hover:bg-white/10 transition-colors duration-200">
-                        Annuler
+                        Cancel
                     </button>
                     <button type="submit" 
                             class="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-transparent">
-                        Ajouter
+                        Add
                     </button>
                 </div>
             </form>

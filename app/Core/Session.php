@@ -15,6 +15,7 @@ class Session {
 
     public static function destroy(): void
     {
+        session_start();
         session_destroy();
     }
 
